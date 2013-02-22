@@ -8,12 +8,15 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.001';
 
 use Moose::Role;
+use Carp qw(croak);
+use Scalar::Does -constants;
 
 has _fallback_hash => (
 	is       => 'ro',
 	isa      => 'Ref',
 	required => 1,
 	init_arg => 'fallback',
+	trigger  => sub { does($_[1], HASH) or croak "Fallback hash is not hashref-like" },
 );
 
 around fallback => sub
