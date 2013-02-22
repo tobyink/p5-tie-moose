@@ -48,7 +48,30 @@ Tie::Moose::FallbackSlot - indicate an attribute with a fallback hashref for unk
 
 =head1 SYNOPSIS
 
+	use v5.14;
+	
+	package Person::Extended {
+		use Moose;
+		extends "Person";
+		has extra => (is => "ro", default => sub { {} });
+	}
+	
+	my $bob = Person->new(name => "Robert");
+	
+	tie(
+		my %bob,
+		"Tie::Moose"->with_traits("FallbackSlot"),
+		$bob, fallback => "extra",
+	);
+	
+	$bob{xyz} = 123;   # $bob doesn't have an attribute called "xyz"
+	say $data{xyz};    # ... so this gets stored in $bob->extra hash
+
 =head1 DESCRIPTION
+
+This is similar to L<Tie::Moose::FallbackHash>, but instead of I<directly>
+providing a hashref to use as fallback storage, you indicate an attribute
+name where the hashref can be found.
 
 =head1 BUGS
 
@@ -56,6 +79,8 @@ Please report any bugs to
 L<http://rt.cpan.org/Dist/Display.html?Queue=Tie-Moose>.
 
 =head1 SEE ALSO
+
+L<Tie::Moose>.
 
 =head1 AUTHOR
 

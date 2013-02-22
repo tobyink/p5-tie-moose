@@ -46,7 +46,25 @@ Tie::Moose::FallbackHash - provide a fallback hashref for unknown attributes
 
 =head1 SYNOPSIS
 
+	my %data;
+	tie(
+		my %bob,
+		"Tie::Moose"->with_traits("FallbackHash"),
+		$bob, fallback => \%data,
+	);
+	
+	$bob{xyz} = 123;   # $bob doesn't have an attribute called "xyz"
+	say $data{xyz};    # ... so this gets stored in the fallback hash
+
 =head1 DESCRIPTION
+
+Usually if you try to store data against a hash key which does not have a
+corresponding attribute in the underlying Moose object, L<Tie::Moose> will
+throw an exception. This module allows you to instead store it into a
+fallback hash.
+
+The fallback hash can itself be a tied hash, or an object which overloads
+C<< %{} >>, so this allows for some interesting possibilities.
 
 =head1 BUGS
 
@@ -54,6 +72,8 @@ Please report any bugs to
 L<http://rt.cpan.org/Dist/Display.html?Queue=Tie-Moose>.
 
 =head1 SEE ALSO
+
+L<Tie::Moose>.
 
 =head1 AUTHOR
 

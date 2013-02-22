@@ -204,7 +204,12 @@ Tie::Moose - tie a hash to a Moose object (yeah, like Tie::MooseObject)
 
 =head1 DESCRIPTION
 
-This module is much like L<Tie::MooseObject> with a few differences:
+This module is much like L<Tie::MooseObject>. It ties a hash to an instance
+of a L<Moose>-based class, allowing you to access attributes as hash keys. It
+uses the accessors provided by Moose, and thus honours read-only attributes,
+type constraints and coercions, triggers, etc.
+
+There are a few key differences with L<Tie::MooseObject>:
 
 =over
 
@@ -224,20 +229,15 @@ from and storing to the hash.
 Implements C<DELETE> from the L<Tie::Hash> interface. Tie::MooseObject does
 not allow keys to be deleted from its hashes.
 
+(C<DELETE> only works on Moose attributes that have a "clearer" method.)
+
 =item *
 
 Supplied with various traits to influence the behaviour of the tied hash.
 
-	my %extra;
-	tie my %bob, "Tie::Moose"->with_traits("FallbackHash"),
-		$bob, fallback => \%extra;
-	
-	# Person class has no attribute "xyz", so this data is stored
-	# in %extra instead!
-	# 
-	$bob{xyz}  = 123;
-	
-	say $extra{xyz};  # says 123
+	tie my %bob, "Tie::Moose"->with_traits("ReadOnly"), $bob;
+
+=back
 
 =head1 BUGS
 
@@ -248,10 +248,11 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=Tie-Moose>.
 
 L<Tie::MooseObject>.
 
-Roles for Tie::Moose:
+Traits for Tie::Moose hashes:
+L<Tie::Moose::ReadOnly>,
+L<Tie::Moose::Forgiving>,
 L<Tie::Moose::FallbackHash>,
-L<Tie::Moose::FallbackSlot>,
-L<Tie::Moose::ReadOnly>.
+L<Tie::Moose::FallbackSlot>.
 
 =head1 AUTHOR
 

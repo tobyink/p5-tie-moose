@@ -8,8 +8,6 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.001';
 
 use Moose::Role;
-use Carp qw(croak);
-use Scalar::Does -constants;
 
 override fallback => sub
 {
@@ -37,7 +35,40 @@ Tie::Moose::Forgiving - don't die at the mere mention of an unknown key
 
 =head1 SYNOPSIS
 
+	tie my %bob, "Tie::Moose"->with_traits("Forgiving"), $bob;
+
 =head1 DESCRIPTION
+
+L<Tie::Moose> is very happy to throw exceptions.
+
+If, for example, you use a hash key that doesn't correspond to one of the
+object's attributes, it will croak. Even if you used C<exists>!
+
+This trait prevents read-only accesses from throwing due to unknown
+attributes.
+
+	use v5.14;
+	
+	package Person {
+		use Moose;
+		has name => (
+			is     => "rw",
+			isa    => "Str",
+		);
+		has age => (
+			is     => "rw",
+			isa    => "Num",
+			reader => "get_age",
+			writer => "set_age",
+		);
+	}
+	
+	my $bob = Person->new(name => "Robert");
+	
+	tie my %bob, "Tie::Moose"->with_traits("Forgiving"), $bob;
+	
+	my $x = $bob{xyz};   # ok ($x is undef)
+	$bob{xyz} = $x;      # would croak
 
 =head1 BUGS
 
@@ -45,6 +76,8 @@ Please report any bugs to
 L<http://rt.cpan.org/Dist/Display.html?Queue=Tie-Moose>.
 
 =head1 SEE ALSO
+
+L<Tie::Moose>.
 
 =head1 AUTHOR
 

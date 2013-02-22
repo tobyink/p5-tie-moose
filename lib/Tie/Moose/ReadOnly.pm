@@ -24,7 +24,14 @@ Tie::Moose::ReadOnly - make tied hash read-only
 
 =head1 SYNOPSIS
 
+	tie my %bob, "Tie::Moose"->with_traits("ReadOnly"), $bob;
+
 =head1 DESCRIPTION
+
+This trait makes the tied hash read-only, even if the underlying object's
+attributes are read-write.
+
+Attempts to store to or delete from the hash will throw an error.
 
 =head1 BUGS
 
@@ -32,6 +39,8 @@ Please report any bugs to
 L<http://rt.cpan.org/Dist/Display.html?Queue=Tie-Moose>.
 
 =head1 SEE ALSO
+
+L<Tie::Moose>.
 
 =head1 AUTHOR
 
