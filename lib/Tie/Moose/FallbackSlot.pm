@@ -13,11 +13,12 @@ has _fallback_slot => (
 	is       => 'ro',
 	isa      => 'Str',
 	required => 1,
-	init_arg => 'fallback';
+	init_arg => 'fallback',
 );
 
-sub fallback
+around fallback => sub
 {
+	my $orig = shift;
 	my $self = shift;
 	my ($operation, $key, $value) = @_;
 	my $slot = $self->_fallback_slot;
@@ -29,7 +30,7 @@ sub fallback
 		when ("DELETE") { return delete $self->object->$slot->{$key} }
 		default         { confess "This should never happen!" }
 	}
-}
+};
 
 no Moose::Role;
 

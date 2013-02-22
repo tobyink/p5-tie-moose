@@ -9,7 +9,7 @@ our $VERSION   = '0.001';
 
 use Moose::Role;
 
-around [qw( STORE DELETE CLEAR )] => sub { confess "read-only tied hash" };
+before [qw( STORE DELETE CLEAR )] => sub { confess "read-only tied hash" };
 
 no Moose::Role;
 

@@ -16,8 +16,9 @@ has _fallback_hash => (
 	init_arg => 'fallback',
 );
 
-sub fallback
+around fallback => sub
 {
+	my $orig = shift;
 	my $self = shift;
 	my ($operation, $key, $value) = @_;
 	my $hash = $self->_fallback_hash;
@@ -29,7 +30,7 @@ sub fallback
 		when ("DELETE") { return delete $hash->{$key} }
 		default         { confess "This should never happen!" }
 	}
-}
+};
 
 no Moose::Role;
 
