@@ -27,7 +27,7 @@ use Tie::Moose;
 {
 	package Loose;
 	use Moose;
-	has foo => (is => 'rw');
+	has foo => (is => 'rw', isa => 'Int');
 	has bar => (is => 'ro');
 	has baz => (is => 'rw', clearer => '_clear_baz');
 	__PACKAGE__->meta->make_immutable;
@@ -49,5 +49,7 @@ like( exception { delete $hash{bar} }, qr{^No clearer for attribute 'bar' in tie
 is( exception { delete $hash{baz} }, undef );
 
 like( exception { my $xyz = $hash{xyz} }, qr{^No attribute 'xyz' in tied object} );
+
+like( exception { $hash{foo} = 1.2 }, qr{^Attribute \(foo\) does not pass the type constraint} );
 
 done_testing;
