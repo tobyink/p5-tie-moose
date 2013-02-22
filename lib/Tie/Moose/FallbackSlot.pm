@@ -8,6 +8,8 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.001';
 
 use Moose::Role;
+use Carp qw(croak);
+use Scalar::Does -constants;
 
 has _fallback_slot => (
 	is       => 'ro',
@@ -22,6 +24,9 @@ around fallback => sub
 	my $self = shift;
 	my ($operation, $key, $value) = @_;
 	my $slot = $self->_fallback_slot;
+	
+	does($self->object->$slot, HASH)
+		or croak "Value of tied object's '$slot' attribute is not hashref-like";
 	
 	given ($operation) {
 		when ("FETCH")  { return $self->object->$slot->{$key} }

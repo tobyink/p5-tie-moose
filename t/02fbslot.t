@@ -28,7 +28,7 @@ use Tie::Moose;
 	has foo => (is => 'rw');
 	has bar => (is => 'ro');
 	has baz => (is => 'rw', clearer => '_clear_baz');
-	has fb  => (is => 'ro', default => sub { +{} });
+	has fb  => (is => 'rw', default => sub { +{} });
 	__PACKAGE__->meta->make_immutable;
 	no Moose;
 }
@@ -54,5 +54,12 @@ is($object->fb->{xyz}, 999);
 is( exception { delete $hash{xyz} }, undef );
 
 ok(!exists $object->fb->{xyz});
+
+$object->fb([]);
+
+like(
+	exception { my $xyz = $hash{xyz} },
+	qr{^Value of tied object's 'fb' attribute is not hashref-like},
+);
 
 done_testing;
