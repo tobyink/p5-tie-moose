@@ -8,8 +8,9 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.001';
 
 use Moose::Role;
+use Carp qw(croak);
 
-before [qw( STORE DELETE CLEAR )] => sub { confess "read-only tied hash" };
+before [qw( STORE DELETE CLEAR )] => sub { croak "Read-only tied hash" };
 
 no Moose::Role;
 

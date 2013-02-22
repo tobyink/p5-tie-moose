@@ -18,9 +18,8 @@ has _fallback_slot => (
 	init_arg => 'fallback',
 );
 
-around fallback => sub
+override fallback => sub
 {
-	my $orig = shift;
 	my $self = shift;
 	my ($operation, $key, $value) = @_;
 	my $slot = $self->_fallback_slot;

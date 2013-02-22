@@ -19,9 +19,8 @@ has _fallback_hash => (
 	trigger  => sub { does($_[1], HASH) or croak "Fallback hash is not hashref-like" },
 );
 
-around fallback => sub
+override fallback => sub
 {
-	my $orig = shift;
 	my $self = shift;
 	my ($operation, $key, $value) = @_;
 	my $hash = $self->_fallback_hash;
