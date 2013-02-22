@@ -237,6 +237,9 @@ Supplied with various traits to influence the behaviour of the tied hash.
 
 	tie my %bob, "Tie::Moose"->with_traits("ReadOnly"), $bob;
 
+(Note that by design, many of the traits supplied with Tie::Moose are
+mutually exclusive.)
+
 =back
 
 =head1 BUGS
