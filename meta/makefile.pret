@@ -1,6 +1,7 @@
 @prefix deps:  <http://ontologi.es/doap-deps#> .
 
 <http://purl.org/NET/cpan-uri/dist/Tie-Moose/project>
+	deps:runtime-requirement         [ deps:on "perl 5.008000"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "Moose 2.00"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "MooseX::Traits 0.09"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "Scalar::Does 0.002"^^deps:CpanId ];
