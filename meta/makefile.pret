@@ -7,5 +7,6 @@
 	deps:runtime-requirement         [ deps:on "Scalar::Does 0.002"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "namespace::autoclean 0.20"^^deps:CpanId ];
 	deps:test-requirement            [ deps:on "Test::More 0.96"^^deps:CpanId ];
+	deps:test-requirement            [ deps:on "Test::Warnings"^^deps:CpanId ];
 	deps:test-requirement            [ deps:on "Test::Fatal 0.007"^^deps:CpanId ].
 
