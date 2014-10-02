@@ -25,12 +25,14 @@ override fallback => sub
 	my ($operation, $key, $value) = @_;
 	my $hash = $self->_fallback_hash;
 	
-	given ($operation) {
-		when ("FETCH")  { return $hash->{$key} }
-		when ("STORE")  { return $hash->{$key} = $value }
-		when ("EXISTS") { return exists $hash->{$key} }
-		when ("DELETE") { return delete $hash->{$key} }
-		default         { confess "This should never happen!" }
+	for ($operation)
+	{
+		if ($_ eq "FETCH")  { return $hash->{$key} }
+		if ($_ eq "STORE")  { return $hash->{$key} = $value }
+		if ($_ eq "EXISTS") { return exists $hash->{$key} }
+		if ($_ eq "DELETE") { return delete $hash->{$key} }
+		
+		confess "This should never happen!";
 	}
 };
 

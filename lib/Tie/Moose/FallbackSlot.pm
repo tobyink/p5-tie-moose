@@ -27,12 +27,14 @@ override fallback => sub
 	does($self->object->$slot, HASH)
 		or croak "Value of tied object's '$slot' attribute is not hashref-like";
 	
-	given ($operation) {
-		when ("FETCH")  { return $self->object->$slot->{$key} }
-		when ("STORE")  { return $self->object->$slot->{$key} = $value }
-		when ("EXISTS") { return exists $self->object->$slot->{$key} }
-		when ("DELETE") { return delete $self->object->$slot->{$key} }
-		default         { confess "This should never happen!" }
+	for ($operation)
+	{
+		if ($_ eq "FETCH")  { return $self->object->$slot->{$key} }
+		if ($_ eq "STORE")  { return $self->object->$slot->{$key} = $value }
+		if ($_ eq "EXISTS") { return exists $self->object->$slot->{$key} }
+		if ($_ eq "DELETE") { return delete $self->object->$slot->{$key} }
+		
+		confess "This should never happen!";
 	}
 };
 
