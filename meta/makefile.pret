@@ -4,7 +4,8 @@
 	deps:runtime-requirement         [ deps:on "perl 5.008000"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "Moose 2.00"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "MooseX::Traits 0.09"^^deps:CpanId ];
-	deps:runtime-requirement         [ deps:on "Scalar::Does 0.002"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "Types::Standard 1.000000"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "Types::TypeTiny 1.000000"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "namespace::autoclean 0.20"^^deps:CpanId ];
 	deps:test-requirement            [ deps:on "Test::More 0.96"^^deps:CpanId ];
 	deps:test-requirement            [ deps:on "Test::Warnings"^^deps:CpanId ];

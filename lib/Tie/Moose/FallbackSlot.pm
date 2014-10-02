@@ -10,11 +10,14 @@ our $VERSION   = '0.002';
 use Moose::Role;
 use namespace::autoclean;
 use Carp qw(croak);
-use Scalar::Does -constants;
+use Types::Standard -types;
+use Types::TypeTiny qw(HashLike);
+
+my $hashish = Ref['HASH'] | HashLike;
 
 has _fallback_slot => (
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Str,
 	required => 1,
 	init_arg => 'fallback',
 );
@@ -25,7 +28,7 @@ override fallback => sub
 	my ($operation, $key, $value) = @_;
 	my $slot = $self->_fallback_slot;
 	
-	does($self->object->$slot, HASH)
+	$hashish->check($self->object->$slot)
 		or croak "Value of tied object's '$slot' attribute is not hashref-like";
 	
 	for ($operation)

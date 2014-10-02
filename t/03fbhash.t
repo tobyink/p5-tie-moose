@@ -59,7 +59,7 @@ ok(!exists $fb{xyz});
 
 like(
 	exception { tie my %hash, "Tie::Moose"->with_traits("FallbackHash"), $object, fallback => [] },
-	qr{^Fallback hash is not hashref-like},
+	qr{not pass the type constraint},
 );
 
 done_testing;

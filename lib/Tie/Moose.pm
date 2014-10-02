@@ -9,26 +9,27 @@ our $VERSION   = '0.002';
 
 use Moose;
 use namespace::autoclean;
-use Carp 'croak';
+use Carp qw( croak );
+use Types::Standard -types;
 
 with 'MooseX::Traits';
 
 has object => (
 	is       => 'ro',
-	isa      => 'Object',
+	isa      => Object,
 	required => 1,
 );
 
 has attributes => (
 	is       => 'ro',
-	isa      => 'ArrayRef[ArrayRef[Str|Undef]]',
+	isa      => ArrayRef[ ArrayRef[ Maybe[Str] ] ],
 	lazy     => 1,
 	builder  => '_build_attributes',
 );
 
 has attributes_hash => (
 	is       => 'ro',
-	isa      => 'HashRef[ArrayRef[Str|Undef]]',
+	isa      => HashRef[ ArrayRef[ Maybe[Str] ] ],
 	lazy     => 1,
 	builder  => '_build_attributes_hash',
 );

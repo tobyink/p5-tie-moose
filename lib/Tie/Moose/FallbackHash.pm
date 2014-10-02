@@ -10,14 +10,16 @@ our $VERSION   = '0.002';
 use Moose::Role;
 use namespace::autoclean;
 use Carp qw(croak);
-use Scalar::Does -constants;
+use Types::Standard -types;
+use Types::TypeTiny qw(HashLike);
+
+my $hashish = Ref['HASH'] | HashLike;
 
 has _fallback_hash => (
 	is       => 'ro',
-	isa      => 'Ref',
+	isa      => $hashish,
 	required => 1,
 	init_arg => 'fallback',
-	trigger  => sub { does($_[1], HASH) or croak "Fallback hash is not hashref-like" },
 );
 
 override fallback => sub
