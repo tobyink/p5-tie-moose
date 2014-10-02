@@ -4,10 +4,18 @@
 	issued  2013-02-22;
 	label   "Initial release".
 
-
 `Tie-Moose 0.002 cpan:TOBYINK`
 	issued    2014-09-10;
 	changeset [
 		item "Switch to Dist::Inkt."^^Packaging;
+	].
+
+`Tie-Moose 0.003 cpan:TOBYINK`
+	issued    2014-10-02;
+	changeset [
+		item "use namespace::autoclean everywhere."^^Change;
+		item "Switch from Scalar::Does to Types::Standard."^^Change;
+		item "Backport to Perl 5.8, and drop usage of given/when."^^Change;
+		item "use Test::Warnings everywhere."^^Tests;
 	].
 
