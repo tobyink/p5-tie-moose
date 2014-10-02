@@ -5,6 +5,7 @@
 	deps:runtime-requirement         [ deps:on "Moose 2.00"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "MooseX::Traits 0.09"^^deps:CpanId ];
 	deps:runtime-requirement         [ deps:on "Scalar::Does 0.002"^^deps:CpanId ];
-	deps:test-requirement            [ deps:on "Test::More 0.61"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "namespace::autoclean 0.20"^^deps:CpanId ];
+	deps:test-requirement            [ deps:on "Test::More 0.96"^^deps:CpanId ];
 	deps:test-requirement            [ deps:on "Test::Fatal 0.007"^^deps:CpanId ].
 

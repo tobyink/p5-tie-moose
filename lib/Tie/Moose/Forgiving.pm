@@ -8,6 +8,7 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.002';
 
 use Moose::Role;
+use namespace::autoclean;
 
 override fallback => sub
 {
@@ -24,8 +25,6 @@ override fallback => sub
 		confess "This should never happen!";
 	}
 };
-
-no Moose::Role;
 
 1;
 

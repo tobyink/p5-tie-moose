@@ -8,11 +8,10 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.002';
 
 use Moose::Role;
+use namespace::autoclean;
 use Carp qw(croak);
 
 before [qw( STORE DELETE CLEAR )] => sub { croak "Read-only tied hash" };
-
-no Moose::Role;
 
 1;
 

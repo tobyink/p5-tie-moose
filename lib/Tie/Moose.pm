@@ -7,8 +7,9 @@ package Tie::Moose;
 our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.002';
 
-use Carp 'croak';
 use Moose;
+use namespace::autoclean;
+use Carp 'croak';
 
 with 'MooseX::Traits';
 
@@ -166,8 +167,6 @@ sub SCALAR
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
-
 1;
 
 __END__
